@@ -11,25 +11,24 @@ import { TbBrandWhatsapp, TbPhone } from "react-icons/tb";
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [dados, setDados] = useState();
-  const [filtroSexo, setfiltroSexo] = useState();
 
   const sexo = ["Sexo", "F", "M"];
+  const agendamentoOpts = [
+    "AGENDADO",
+    "FALTOU",
+    "FINALIZADO",
+    "CONFIRMADO",
+    "CANCELADO",
+    "CANCELADO_PACIENTE",
+    "CONFIRMADO_PACIENTE",
+    "EM_ANDAMENTO",
+    "EM_ESPERA",
+    "PRÉ_ATENDIMENTO",
+    "PAGAMENTO",
+  ];
 
-  // const people = [
-  //   { id: 1, name: "Agendamentos", unavailable: true },
-  //   { id: 2, name: "AGENDADO", unavailable: false },
-  //   { id: 3, name: "FALTOU", unavailable: false },
-  //   { id: 4, name: "FINALIZADO", unavailable: false },
-  //   { id: 5, name: "CONFIRMADO", unavailable: false },
-  //   { id: 6, name: "CANCELADO", unavailable: false },
-  //   { id: 7, name: "CANCELADO_PACIENTE", unavailable: true },
-  //   { id: 8, name: "CONFIRMADO_PACIENTE", unavailable: true },
-  //   { id: 9, name: "EM_ANDAMENTO", unavailable: true },
-  //   { id: 10, name: "EM_ESPERA", unavailable: true },
-  //   { id: 11, name: "PRÉ_ATENDIMENTO", unavailable: true },
-  //   { id: 12, name: "PAGAMENTO", unavailable: true },
-  // ];
-  const [filtroAgendamento, setfiltroAgendamento] = useState("AGENDADO");
+  const [filtroAgendamento, setfiltroAgendamento] = useState("");
+  const [filtroSexo, setfiltroSexo] = useState("");
 
   const [busca, setBusca] = useState("");
 
@@ -42,45 +41,41 @@ const Dashboard = () => {
     let dadosPacientes = dados;
 
     // Filtro Barra de pesquisa
-    if (busca) {
-      dadosPacientes = dadosPacientes.filter((dado) => {
-        if (busca == "") {
-          return dado;
-        } else if (dado.nome.toLowerCase().includes(busca.toLowerCase())) {
-          return dado;
-        }
-      });
+    if (busca && dados) {
+      dadosPacientes = dadosPacientes.filter((dado) =>
+        dado.nome.toLowerCase().includes(busca.toLowerCase())
+      );
     }
 
     // Filtro por Sexo
-    if (filtroSexo) {
+    if (filtroSexo !== "" && filtroSexo !== "Sexo" && dados) {
       dadosPacientes = dadosPacientes.filter(
         (item) => item.sexo === filtroSexo
       );
     }
 
-    return dadosPacientes;
+    if (
+      filtroAgendamento !== "" &&
+      filtroAgendamento !== "Agendamentos" &&
+      dados
+    ) {
+      dadosPacientes = dadosPacientes.filter((value) =>
+        value.agendamentosFeitos.find(
+          (value) => value[0].status === filtroAgendamento
+        )
+      );
+
+      console.log(
+        dadosPacientes.filter((value) =>
+          value.agendamentosFeitos.find(
+            (value) => value[0].status === filtroAgendamento
+          )
+        )
+      );
+    }
+
+    return dadosPacientes ? dadosPacientes : [];
   };
-
-  // const agendaFiltrada = filtroAgendamento
-  //   ? dados &&
-  //     dados.map((item) => {
-  //       const agendamento = item.agendamentosFeitos;
-  //       agendamento.map((agenda) =>
-  //         agenda.filter((itemAgenda) => console.log(itemAgenda.status))
-  //       );
-  //     })
-  //   : dados;
-
-  // const filtrarAgendamentos = filtroAgendamento
-  //   ? dados &&
-  //     dados.map((item) => {
-  //       const agendamento = item.agendamentosFeitos;
-  //       agendamento.map((agenda) =>
-  //         agenda.map((itemAgenda) => console.log(itemAgenda.status))
-  //       );
-  //     })
-  //   : dados;
 
   return (
     <div className="min-h-screen min-w-full	 flex flex-row  bg-gray-300">
@@ -144,12 +139,13 @@ const Dashboard = () => {
                   Filtrar por:
                 </p>
                 <div className="flex flex-row gap-x-2">
-                  <Listbox value={filtroSexo} onChange={setfiltroSexo}>
+                  <Listbox
+                    value={filtroAgendamento}
+                    onChange={setfiltroAgendamento}
+                  >
                     <div className="relative mt-2 w-48">
                       <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                        <span className="block truncate">
-                          {filtroSexo ? filtroSexo : "Agendamentos"}
-                        </span>
+                        <span className="block truncate">Agendamentos</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                           <ChevronUpDownIcon
                             className="h-5 w-5 text-gray-400"
@@ -164,7 +160,7 @@ const Dashboard = () => {
                         leaveTo="opacity-0"
                       >
                         <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                          {sexo.map((person, personIdx) => (
+                          {agendamentoOpts.map((person, personIdx) => (
                             <Listbox.Option
                               key={personIdx}
                               className={({ active }) =>
@@ -351,58 +347,57 @@ const Dashboard = () => {
                   </th>
                 </tr>
               </thead>
-              {filtrosPaciente() &&
-                filtrosPaciente().map((paciente, index) => {
-                  return (
-                    <tbody key={index}>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="w-4 p-4">
-                          <div className="flex items-center">
-                            <input
-                              id="checkbox-table-search-1"
-                              type="checkbox"
-                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            />
-                            <label
-                              htmlFor="checkbox-table-search-1"
-                              className="sr-only"
-                            >
-                              checkbox
-                            </label>
-                          </div>
-                        </td>
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-                        >
-                          {paciente.nome}
-                        </th>
-                        <td className="px-6 py-4">22/01/2022</td>
-                        <td className="flex flex-row gap-1 px-6 py-4">
-                          <TbBrandWhatsapp size={25} color="6b7280" />
-                          <TbPhone size={25} color="6b7280" />
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                            <span
-                              aria-hidden
-                              className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                            ></span>
-                            <span className="relative">Ativo</span>
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                          <a
-                            href="#"
-                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              {filtrosPaciente().map((paciente, index) => {
+                return (
+                  <tbody key={index}>
+                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      <td className="w-4 p-4">
+                        <div className="flex items-center">
+                          <input
+                            id="checkbox-table-search-1"
+                            type="checkbox"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          />
+                          <label
+                            htmlFor="checkbox-table-search-1"
+                            className="sr-only"
                           >
-                            Editar
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  );
-                })}
+                            checkbox
+                          </label>
+                        </div>
+                      </td>
+                      <th
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                      >
+                        {paciente.nome}
+                      </th>
+                      <td className="px-6 py-4">22/01/2022</td>
+                      <td className="flex flex-row gap-1 px-6 py-4">
+                        <TbBrandWhatsapp size={25} color="6b7280" />
+                        <TbPhone size={25} color="6b7280" />
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                          ></span>
+                          <span className="relative">Ativo</span>
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-right">
+                        <a
+                          href="#"
+                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        >
+                          Editar
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
             </table>
           </div>
         </div>
