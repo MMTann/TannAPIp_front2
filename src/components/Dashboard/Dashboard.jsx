@@ -1,12 +1,12 @@
 // Imports
 import React, { useEffect, useState, Fragment } from "react";
-import dayjs from "dayjs";
+
 import { dataGet } from "../../services/api";
-import BarraDeFiltros from "../BarraDeFiltros/BarraDeFiltros";
 import MenuSidebar from "../MenuSidebar/MenuSidebar";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { TbBrandWhatsapp, TbPhone } from "react-icons/tb";
+import { Navigate, Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
@@ -61,14 +61,14 @@ const Dashboard = () => {
     ) {
       dadosPacientes = dadosPacientes.filter((value) =>
         value.agendamentosFeitos.find(
-          (value) => value[0].status === filtroAgendamento
+          (value) => value[value.length - 1].status === filtroAgendamento
         )
       );
 
       console.log(
         dadosPacientes.filter((value) =>
           value.agendamentosFeitos.find(
-            (value) => value[0].status === filtroAgendamento
+            (value) => value[value.length - 1].status === filtroAgendamento
           )
         )
       );
@@ -78,7 +78,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen min-w-full	 flex flex-row  bg-gray-300">
+    <div className="min-h-screen min-w-full	 flex flex-row  bg-[#f4f6f8]">
       <MenuSidebar />
 
       {loading ? (
@@ -366,16 +366,32 @@ const Dashboard = () => {
                           </label>
                         </div>
                       </td>
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-                      >
-                        {paciente.nome}
-                      </th>
+                      <Link to={`/paciente/${paciente.idConsulta}`}>
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap hover:underline hover:underline-offset-1"
+                        >
+                          {paciente.nome}
+                        </th>
+                      </Link>
                       <td className="px-6 py-4">22/01/2022</td>
                       <td className="flex flex-row gap-1 px-6 py-4">
-                        <TbBrandWhatsapp size={25} color="6b7280" />
-                        <TbPhone size={25} color="6b7280" />
+                        <a
+                          href={`https://api.whatsapp.com/send?phone=55${paciente.contato.telefoneCelular
+                            .trim()
+                            .replace(/[^a-zA-Z0-9]/g, "")}`}
+                        >
+                          <TbBrandWhatsapp size={25} color="6b7280" />
+                        </a>
+
+                        <a
+                          href={`https://harmoni.my3cx.com.br:5001/webclient/#/call?phone=${paciente.contato.telefoneCelular
+                            .trim()
+                            .replace(/[^a-zA-Z0-9]/g, "")}`}
+                          target="_blank"
+                        >
+                          <TbPhone size={25} color="6b7280" />
+                        </a>
                       </td>
                       <td className="px-6 py-4">
                         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
