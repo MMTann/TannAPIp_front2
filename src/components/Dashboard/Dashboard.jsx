@@ -5,7 +5,7 @@ import { dataGet } from "../../services/api";
 import MenuSidebar from "../MenuSidebar/MenuSidebar";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { TbBrandWhatsapp, TbPhone } from "react-icons/tb";
+import { TbBrandWhatsapp, TbPhone, TbSpeakerphone } from "react-icons/tb";
 import { Navigate, Link } from "react-router-dom";
 
 const Dashboard = () => {
@@ -103,7 +103,7 @@ const Dashboard = () => {
           </div>
         </div>
       ) : (
-        <div className=" my-0 mx-auto max-w-5xl	w-full		justify-center mt-10 mb-10">
+        <div className="my-0 mx-auto max-w-5xl	w-full		justify-center mt-10 mb-10">
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
             <div className="p-4 bg-slate-500 ">
               <label htmlFor="table-search" className="sr-only">
@@ -407,7 +407,9 @@ const Dashboard = () => {
                           href="#"
                           className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                         >
-                          Editar
+                          <Link to={`/marketing/${paciente.idConsulta}`}>
+                            <TbSpeakerphone size={25} color="6b7280" />
+                          </Link>
                         </a>
                       </td>
                     </tr>
