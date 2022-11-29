@@ -5,6 +5,8 @@ import Dashboard from "./src/pages/Dashboard";
 import Paciente from "./src/pages/Paciente";
 import PacienteView from "./src/components/Paciente/PacienteView";
 import PesquisaDeMarketing from "./src/components/Marketing/PesquisaDeMarketing";
+import Anamnese from "./src/components/Anamnese/Anamnese";
+
 const Router = () => {
   return (
     <BrowserRouter>
@@ -17,6 +19,7 @@ const Router = () => {
           path="/marketing/:idConsulta"
           element={<PesquisaDeMarketing />}
         />
+        <Route path="/anamnese/:idConsulta" element={<Anamnese />} />
       </Routes>
     </BrowserRouter>
   );

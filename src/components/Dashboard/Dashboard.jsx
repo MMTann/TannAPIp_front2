@@ -5,7 +5,12 @@ import { dataGet } from "../../services/api";
 import MenuSidebar from "../MenuSidebar/MenuSidebar";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { TbBrandWhatsapp, TbPhone, TbSpeakerphone } from "react-icons/tb";
+import {
+  TbBrandWhatsapp,
+  TbPhone,
+  TbMail,
+  TbFileDescription,
+} from "react-icons/tb";
 import { Navigate, Link } from "react-router-dom";
 
 const Dashboard = () => {
@@ -343,7 +348,7 @@ const Dashboard = () => {
                     Status
                   </th>
                   <th scope="col" className="px-6 py-3 w-52">
-                    <span className="sr-only">Editar</span>
+                    <span className="">Ações</span>
                   </th>
                 </tr>
               </thead>
@@ -402,15 +407,13 @@ const Dashboard = () => {
                           <span className="relative">Ativo</span>
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-right">
-                        <a
-                          href="#"
-                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          <Link to={`/marketing/${paciente.idConsulta}`}>
-                            <TbSpeakerphone size={25} color="6b7280" />
-                          </Link>
-                        </a>
+                      <td className="flex fle-row px-6 py-4 text-right">
+                        <Link to={`/marketing/${paciente.idConsulta}`}>
+                          <TbMail size={25} color="6b7280" />
+                        </Link>
+                        <Link to={`/anamnese/${paciente.idConsulta}`}>
+                          <TbFileDescription size={25} color="6b7280" />
+                        </Link>
                       </td>
                     </tr>
                   </tbody>

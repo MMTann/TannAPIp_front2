@@ -9,17 +9,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 const PesquisaDeMarketing = () => {
   const { idConsulta } = useParams();
 
-  const [marketingData, setMarketingData] = useState({
-    pesquisaMarketing: {
-      clinica: "",
-      importanciaAparencia: "",
-      influenciaProfissonal: "",
-      aparenciaPreferida: "",
-      realizouTratamento: "",
-      conhecimentoEstetico: "",
-      importanciaTecnologica: "",
-    },
-  });
+  const [marketingData, setMarketingData] = useState({});
 
   function handleChange(e, nomeDaChave) {
     setMarketingData({
@@ -30,11 +20,18 @@ const PesquisaDeMarketing = () => {
 
   function handleClick(e) {
     e.preventDefault();
+
+    const payload = {
+      pesquisaMarketing: {
+        ...marketingData,
+      },
+    };
+
     try {
       axios
         .patch(
           `https://tannapiv2.herokuapp.com/paciente/${idConsulta}`,
-          marketingData
+          payload
         )
         .then((response) => {
           console.log(response.data);
@@ -60,7 +57,7 @@ const PesquisaDeMarketing = () => {
             <h1 className="mt-[35px] text-2xl font-semibold flex items-center ml-16">
               Pesquisa de Marketing
             </h1>
-            <form className="w-3/4 ml-16 mt-[35px] uppercase">
+            <form className="w-3/4 ml-16 mt-[35px]">
               <fieldset>
                 <h3 className="mb-5 text-lg font-medium text-gray-900 dark:text-white">
                   <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
@@ -68,6 +65,7 @@ const PesquisaDeMarketing = () => {
                   </span>
                   Escolha a clínica de atendimento:
                 </h3>
+
                 <ul className="grid gap-4 w-full grid-cols-3">
                   <li>
                     <input

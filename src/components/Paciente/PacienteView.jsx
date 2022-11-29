@@ -54,6 +54,7 @@ const PacienteView = () => {
                 Pesquisa Marketing
               </button>
             </div>
+
             <div className="w-[1024px] bg-white flex flex-row space-x-16 mt-4 p-7 rounded drop-shadow-md">
               <div>
                 <span className="text-sm uppercase font-bold underline underline-offset-8">
@@ -228,12 +229,12 @@ const PacienteView = () => {
                 Consultas
               </h1>
               <div className="w-[1024px] bg-white flex flex-col mt-4 p-10 rounded drop-shadow-md">
-                {paciente.consultasFeitas &&
-                  paciente.consultasFeitas
+                {paciente?.consultasFeitas &&
+                  paciente?.consultasFeitas
                     .slice(0)
                     .reverse()
                     .map((consulta, index) =>
-                      consulta.map((item) =>
+                      consulta?.map((item) =>
                         consulta.length === 0 ? (
                           console.log("Sem consulta")
                         ) : (
@@ -259,7 +260,7 @@ const PacienteView = () => {
                               </span>
                               <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">
                                 {item?.status.replace(/[^a-zA-Z0-9]/g, " ")}
-                                {item.status === "FINALIZADO" ? (
+                                {item?.status === "FINALIZADO" ? (
                                   <span
                                     className={
                                       "bg-green-200 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-800 ml-3"
@@ -297,7 +298,7 @@ const PacienteView = () => {
                                 {index === 0 ? (
                                   <span
                                     className={
-                                      "bg-orange-200 text-orange-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-800  "
+                                      "bg-orange-200 text-orange-800 text-sm font-medium ml-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-800  "
                                     }
                                   >
                                     Última consulta
@@ -383,6 +384,305 @@ const PacienteView = () => {
                         )
                       )
                     )}
+              </div>
+            </div>
+            <div>
+              <h1 className="mt-[35px] text-2xl font-semibold flex items-center ">
+                Anamnese
+              </h1>
+              <div className="w-[1024px] bg-white flex flex-col mt-4 p-10 rounded drop-shadow-md">
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      1
+                    </span>
+                    Selecione a clínica de atendimento:
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.clinica}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      2
+                    </span>
+                    Marque o seu grau de escolaridade:
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.grauEscolaridade}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      3
+                    </span>
+                    Informe sua ocupação profissional:
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.profissao}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      4
+                    </span>
+                    Marque o seu estado civil atual:
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.estadoCivil}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      5
+                    </span>
+                    Informe o tamanho e composição da Família
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.composicaoFamiliar}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      6
+                    </span>
+                    Você possui alergias?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Medicamentosa: {paciente?.anamnese?.alergiaMedicamentosa}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Alimentícia: {paciente?.anamnese?.alergiaAlimenticia}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Dermocosmética: {paciente?.anamnese?.alergiaDermocosmetica}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Outras: {paciente?.anamnese?.alergiaOutras}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsAlergias}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      7
+                    </span>
+                    Você tem diabetes?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.diabates}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsDiabates}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      8
+                    </span>
+                    Você tem hipertensão?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.hipertensao}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsHipertensao}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      9
+                    </span>
+                    Você tem neoplasia/cancêr?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.neoplasia}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsNeoplasia}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      10
+                    </span>
+                    Você possui alguma doença crônica?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.doencaCronica}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsDoencaCronica}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      11
+                    </span>
+                    Você utiliza algum remédio de uso contínuo?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.usoDeRemedio}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsUsoDeRemedio}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      12
+                    </span>
+                    Você é fumante?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.fumante}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsFumante}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      13
+                    </span>
+                    Você é usuário de drogas?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.usoDeDrogas}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsUsoDeDrogas}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      14
+                    </span>
+                    Você sofre de etilismo?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.etilismo}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsEtilismo}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      15
+                    </span>
+                    Você pratica atividade física?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.anamnese?.atividadeFisica}
+                  </p>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    Observações: {paciente?.anamnese?.obsAtividadeFisica}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h1 className="mt-[35px] text-2xl font-semibold flex items-center ">
+                Pesquisa de Marketing
+              </h1>
+              <div className="w-[1024px] bg-white flex flex-col mt-4 p-10 rounded drop-shadow-md">
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      1
+                    </span>
+                    Escolha a clínica de atendimento:
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.pesquisaMarketing?.clinica}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      2
+                    </span>
+                    Que importância você dá para a sua aparência:
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.pesquisaMarketing?.importanciaAparencia}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      3
+                    </span>
+                    Como acredita que ela possa influenciar no seu sucesso
+                    profissional?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.pesquisaMarketing?.influenciaProfissonal}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      4
+                    </span>
+                    Da sua aparência o que você considera o mais importante?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.pesquisaMarketing?.aparenciaPreferida}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      5
+                    </span>
+                    Você já realizou algum tratamento estético odontológico ou
+                    facial?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.pesquisaMarketing?.realizouTratamento}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      6
+                    </span>
+                    Como você avaliaria o seu conhecimento sobre estética facial
+                    e odontológica e os tratamentos disponíveis?
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.pesquisaMarketing?.conhecimentoEstetico}
+                  </p>
+                </div>
+                <div className="mb-8">
+                  <h3 className="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+                    <span className="bg-blue-200 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                      7
+                    </span>
+                    Qual a importância que você dá para a tecnologia nos
+                    tratamentos odontológicos/estéticos:
+                  </h3>
+                  <p className="ml-10 text-gray-400 font-semibold text-lg">
+                    {paciente?.pesquisaMarketing?.importanciaTecnologica}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
