@@ -6,7 +6,7 @@ export async function dataGet(setDados, dados, setLoading) {
   try {
     setLoading(true);
     await api
-      .get("https://tannapiv2.herokuapp.com/paciente")
+      .get("https://tann-api.onrender.com/paciente")
       .then((response) => {
         setDados(response.data);
         return dados;

@@ -42,8 +42,9 @@ const Dashboard = () => {
     dataGet(setDados, dados, setLoading);
   }, []);
 
+  console.log(dados?.pacientes);
   const filtrosPaciente = () => {
-    let dadosPacientes = dados;
+    let dadosPacientes = dados?.pacientes;
 
     // Filtro Barra de pesquisa
     if (busca && dados) {
@@ -352,7 +353,7 @@ const Dashboard = () => {
                   </th>
                 </tr>
               </thead>
-              {filtrosPaciente().map((paciente, index) => {
+              {filtrosPaciente()?.map((paciente, index) => {
                 return (
                   <tbody key={index}>
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
