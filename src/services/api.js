@@ -6,7 +6,7 @@ export async function dataGet(setDados, dados, setLoading) {
   try {
     setLoading(true);
     await api
-      .get("https://tann-api.onrender.com/paciente")
+      .get("http://ec2-54-90-172-8.compute-1.amazonaws.com:3000/paciente")
       .then((response) => {
         setDados(response.data);
         return dados;
