@@ -15,7 +15,7 @@ const MenuSidebar = () => {
             <p>Início</p>
           </span>
         </Link>
-        <Link to="/dashboard">
+        <Link to="/mapadepacientes">
           <span className="flex flex-row gap-x-2 text-base font-semibold ml-9">
             <TbUserCircle size={25} color="223134" />
             <p>Mapa de Pacientes</p>
