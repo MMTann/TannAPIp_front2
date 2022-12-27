@@ -6,6 +6,7 @@ import Paciente from "./src/pages/Paciente";
 import PacienteView from "./src/components/Paciente/PacienteView";
 import PesquisaDeMarketing from "./src/components/Marketing/PesquisaDeMarketing";
 import Anamnese from "./src/components/Anamnese/Anamnese";
+import MapaPacientes from "./src/pages/MapaPacientes";
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
           element={<PesquisaDeMarketing />}
         />
         <Route path="/anamnese/:idConsulta" element={<Anamnese />} />
+        <Route path="/mapadepacientes" element={<MapaPacientes />} />
       </Routes>
     </BrowserRouter>
   );
