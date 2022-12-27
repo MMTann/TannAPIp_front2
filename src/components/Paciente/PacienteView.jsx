@@ -20,7 +20,8 @@ const PacienteView = () => {
     return cpf;
   }
 
-  const url = "http://ec2-54-90-172-8.compute-1.amazonaws.com:3000/paciente";
+  const url =
+    "http://ec2-18-231-71-98.sa-east-1.compute.amazonaws.com:3000/paciente";
 
   useEffect(() => {
     axios.get(`${url}/${idConsulta}`).then((res) => {
@@ -97,7 +98,7 @@ const PacienteView = () => {
             </div>
             <div>
               <h1 className="mt-[35px] text-2xl font-semibold flex items-center ">
-                Agendamentos
+                Consultas
               </h1>
               <div className="w-[1024px] bg-white flex flex-col mt-4 p-10 rounded drop-shadow-md">
                 {paciente.agendamentosFeitos &&
@@ -226,7 +227,7 @@ const PacienteView = () => {
             </div>
             <div>
               <h1 className="mt-[35px] text-2xl font-semibold flex items-center ">
-                Consultas
+                Plano de Tratamento
               </h1>
               <div className="w-[1024px] bg-white flex flex-col mt-4 p-10 rounded drop-shadow-md">
                 {paciente?.consultasFeitas &&
@@ -308,7 +309,7 @@ const PacienteView = () => {
                                 )}
                               </h3>
                               <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                                Consulta em {item?.dataCriacao}
+                                Tratamento iniciado em {item?.dataCriacao}
                               </time>
                               <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
                                 Profissional: {item.profissionalSolicitante}
@@ -331,18 +332,18 @@ const PacienteView = () => {
                                             {procedimento.map((item) => (
                                               <div>
                                                 <p className="mt-4">
-                                                  Status:{" "}
+                                                  Nome:{" "}
                                                   <span className="font-bold">
-                                                    {item.status}
+                                                    {item.nome}
                                                   </span>
                                                 </p>
-                                                <p>Nome: {item.nome}</p>
-
-                                                <p>Convênio: {item.convenio}</p>
                                                 <p>
                                                   Especialidade:{" "}
-                                                  {item.especialidade}
+                                                  <span className="font-bold">
+                                                    {item.especialidade}
+                                                  </span>
                                                 </p>
+                                                <p>Convênio: {item.convenio}</p>
                                                 <p>
                                                   Quadrante:{" "}
                                                   {item.quadrantes === null
@@ -369,6 +370,12 @@ const PacienteView = () => {
                                                   {item.raizes === null
                                                     ? "Não informado"
                                                     : item.raizes}
+                                                </p>
+                                                <p>
+                                                  Status:{" "}
+                                                  <span className="font-bold">
+                                                    {item.status}
+                                                  </span>
                                                 </p>
                                               </div>
                                             ))}

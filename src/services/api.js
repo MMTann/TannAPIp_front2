@@ -6,7 +6,9 @@ export async function dataGet(setDados, dados, setLoading) {
   try {
     setLoading(true);
     await api
-      .get("http://ec2-54-90-172-8.compute-1.amazonaws.com:3000/paciente")
+      .get(
+        "http://ec2-18-231-71-98.sa-east-1.compute.amazonaws.com:3000/paciente"
+      )
       .then((response) => {
         setDados(response.data);
         return dados;
