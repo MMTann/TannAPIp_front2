@@ -13,7 +13,7 @@ const LoginPage = () => {
           className="text-white  bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center justify-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2 w-full"
           onClick={() => {
             const popup = window.open(
-              "http://localhost:3000/auth/microsoft",
+              "https://api.tannodontoestetica.com.br:3000/auth/microsoft",
               "targetWindow",
               `toolbar=no,
                  location=no,
@@ -26,7 +26,9 @@ const LoginPage = () => {
             );
 
             window.addEventListener("message", (event) => {
-              if (event.origin === "http://localhost:3000") {
+              if (
+                event.origin === "https://api.tannodontoestetica.com.br:3000"
+              ) {
                 if (event.data) {
                   sessionStorage.setItem("user", JSON.stringify(event.data));
                   popup.close();
