@@ -7,7 +7,7 @@ export async function dataGet(setDados, dados, setLoading) {
     setLoading(true);
     await api
       .get(
-        "http://ec2-18-231-71-98.sa-east-1.compute.amazonaws.com:3000/paciente"
+        "https://api.tannodontoestetica.com.br:3000/paciente"
       )
       .then((response) => {
         setDados(response.data);

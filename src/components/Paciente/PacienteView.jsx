@@ -20,8 +20,7 @@ const PacienteView = () => {
     return cpf;
   }
 
-  const url =
-    "http://ec2-18-231-71-98.sa-east-1.compute.amazonaws.com:3000/paciente";
+  const url = "https://api.tannodontoestetica.com.br:3000/paciente";
 
   useEffect(() => {
     axios.get(`${url}/${idConsulta}`).then((res) => {
