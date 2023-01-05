@@ -30,7 +30,7 @@ const Anamnese = () => {
     try {
       axios
         .patch(
-          `https://tannapiv2.herokuapp.com/paciente/${idConsulta}`,
+          `https://api.tannodontoestetica.com.br:3000/paciente/${idConsulta}`,
           payload
         )
         .then((response) => {
